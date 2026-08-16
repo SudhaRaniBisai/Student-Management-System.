@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 70%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Student Information</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>Marks</th>
+            <th>Edit</th>
+        </tr>
+
+        <% result.forEach(student => { %>
+            <tr>
+                <td><%= student.roll_no %></td>
+                <td><%= student.name %></td>
+                <td><%= student.city %></td>
+                <td><%= student.marks %></td>
+                <td>
+    <a href="/user/<%= student.roll_no %>/edit">Edit</a>
+</td>
+            </tr>
+        <% }) %>
+
+    </table>
+
+    <a href="/user/new" style="text-decoration:none;">
+    <button type="button">Add Student</button>
+</a>
+<a href="/user/delete" style="text-decoration:none;">
+    <button type="button">Delete Student</button>
+</a>
+
+</body>
+</html>

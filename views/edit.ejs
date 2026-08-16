@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+</head>
+<body>
+
+    <h2>Edit Student</h2>
+
+    <form method="POST" action="/user/<%= student.roll_no %>?_method=PATCH">
+
+        <input
+            type="text"
+            name="name"
+            value="<%= student.name %>"
+        >
+
+        <button type="submit">Update</button>
+
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+</head>
+<body>
+
+    <h2>Add New Student</h2>
+
+    <form action="/user" method="POST">
+
+        <label>Roll No:</label>
+        <input type="number" name="roll_no" required autocomplete="off">
+        <br><br>
+
+        <label>Name:</label>
+        <input type="text" name="name" required autocomplete="off">
+        <br><br>
+
+        <label>City:</label>
+        <input type="text" name="city" required autocomplete="off">
+        <br><br>
+
+        <label>Marks:</label>
+        <input type="number" name="marks" required autocomplete="off">
+        <br><br>
+
+        <button type="submit">Add Student</button>
+
+    </form>
+
+    <br>
+
+    <a href="/user">Back to Student List</a>
+
+</body>
+</html>
