@@ -1,10 +1,11 @@
 require("dotenv").config();
+
 const express = require("express");
 const mysql = require("mysql2");
 const path = require("path");
+const methodOverride = require("method-override");
 
 const app = express();
-const methodOverride = require("method-override");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
@@ -12,18 +13,23 @@ app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+// MySQL connection
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST
+    host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT
 });
+
+// View all students
 app.get("/user", (req, res) => {
+
     const q = "SELECT * FROM student_info";
 
     connection.query(q, (err, result) => {
-        if (err){
+
+        if (err) {
             console.log(err);
             return res.send("Database Error");
         }
@@ -31,7 +37,8 @@ app.get("/user", (req, res) => {
         res.render("students", { result });
     });
 });
-//Edit 
+
+// Edit page
 app.get("/user/:roll_no/edit", (req, res) => {
 
     let { roll_no } = req.params;
@@ -39,6 +46,7 @@ app.get("/user/:roll_no/edit", (req, res) => {
     let q = "SELECT * FROM student_info WHERE roll_no = ?";
 
     connection.query(q, [roll_no], (err, result) => {
+
         if (err) {
             console.log(err);
             return res.send("Database Error");
@@ -51,6 +59,8 @@ app.get("/user/:roll_no/edit", (req, res) => {
         res.render("edit", { student: result[0] });
     });
 });
+
+// Update student
 app.patch("/user/:roll_no", (req, res) => {
 
     let { roll_no } = req.params;
@@ -68,11 +78,13 @@ app.patch("/user/:roll_no", (req, res) => {
         res.redirect("/user");
     });
 });
-//ADD new row
+
+// Add new student page
 app.get("/user/new", (req, res) => {
     res.render("new");
 });
 
+// Add new student
 app.post("/user", (req, res) => {
 
     let { roll_no, name, city, marks } = req.body;
@@ -83,20 +95,27 @@ app.post("/user", (req, res) => {
         VALUES (?, ?, ?, ?)
     `;
 
-    connection.query(q, [roll_no, name, city, marks], (err, result) => {
+    connection.query(
+        q,
+        [roll_no, name, city, marks],
+        (err, result) => {
 
-        if (err) {
-            console.log(err);
-            return res.send("Database Error");
+            if (err) {
+                console.log(err);
+                return res.send("Database Error");
+            }
+
+            res.redirect("/user");
         }
-
-        res.redirect("/user");
-    });
+    );
 });
-//Delete
+
+// Delete page
 app.get("/user/delete", (req, res) => {
     res.render("delete");
 });
+
+// Delete student
 app.post("/user/delete", (req, res) => {
 
     let { roll_no } = req.body;
@@ -118,6 +137,7 @@ app.post("/user/delete", (req, res) => {
     });
 });
 
+// Start server
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
