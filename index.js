@@ -119,11 +119,7 @@ app.post("/user/delete", (req, res) => {
 });
 
 const PORT = process.env.PORT || 8080;
-<<<<<<< HEAD
-app.listen(PORT,()=>(`Server Running on port ${PORT}`);
-=======
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
->>>>>>> d9b4996 (Prepare project for deployment)
 });
