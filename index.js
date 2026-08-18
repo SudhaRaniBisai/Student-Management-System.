@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mysql = require("mysql2");
 const path = require("path");
@@ -12,10 +13,10 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 const connection = mysql.createConnection({
-    host: "localhost",
-    user: "sudha",
-    password: "1234",
-    database: "Practice"
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 app.get("/user", (req, res) => {
@@ -118,5 +119,11 @@ app.post("/user/delete", (req, res) => {
 });
 
 const PORT = process.env.PORT || 8080;
+<<<<<<< HEAD
 app.listen(PORT,()=>(`Server Running on port ${PORT}`);
+=======
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+>>>>>>> d9b4996 (Prepare project for deployment)
 });
